@@ -1,0 +1,21 @@
+.git/
+.github/
+.next/
+.vercel/
+node_modules/
+
+.env
+.env.*
+!.env.example
+
+.agents/
+.interface-design/
+.obsidian/
+patient_chats*
+competitor_chats*
+Pasted image*.png
+skills-lock.json
+
+*.log
+*.tsbuildinfo
+.DS_Store
