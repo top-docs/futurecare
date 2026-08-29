@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+.vercel/
+
+.env
+.env.*
+!.env.example
+
+*.log
+*.tsbuildinfo
+.DS_Store
+
+# Workspace-only research and private evidence
+.agents/
+.interface-design/
+.obsidian/
+patient_chats*
+competitor_chats*
+Pasted image*.png
+skills-lock.json
