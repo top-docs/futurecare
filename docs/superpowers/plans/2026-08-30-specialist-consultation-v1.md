@@ -1,6 +1,6 @@
 # FutureCare Specialist Consultation V1 Build Plan
 
-> Plan status: approved choices recorded; application code has not started.
+> Plan status: Milestone 1 is complete and verified on the live Vercel deployment; Milestone 2 is next.
 
 **Goal:** Ship a live mobile-first product where a patient describes a case, sees one approved specialist, pays through Razorpay test mode, and understands that the care team will arrange the consultation within 24 hours.
 
@@ -34,9 +34,10 @@ These choices were stated or approved by the builder during planning:
 - Never place private patient chats, reports, prescriptions, phone numbers, payment details, meeting links, or identifiable health information in the public repository, screenshots, tests, or demo data.
 - Use fictional test patients in automated and manual tests.
 - The AI is a front desk, not a doctor: no diagnosis, treatment advice, medicine recommendation, report interpretation, outcome promise, or prescription.
+- Until the real OpenAI assistant is added in Milestone 8, label the hardcoded conversation `Health Assistant` or `Guided intake`; do not call it AI.
 - Uploaded reports are stored for manual review and are never sent to OpenAI in V1.
 - Use only approved doctor names, photos, specialties, qualifications, focus areas, and institute-training facts.
-- Say `trained at` unless current employment is separately verified. Never claim a doctor is “the best.”
+- Say `trained at` unless current employment is separately verified. Do not use unqualified claims such as `India's top doctors` or claim that a doctor is “the best.”
 
 ## Planned file structure
 
@@ -90,7 +91,7 @@ Exact component filenames may be split when a file becomes difficult to read, bu
 |---:|---|---|---|---|
 | 1 | - [x] **I can complete one rough gynaecology journey on the live site.** | Create the app, design tokens, one hardcoded chat path, Dr. Kirti Sinha’s approved card, case summary, guest contact form, one saved Convex case, Razorpay Checkout test payment, completion page, public GitHub repository, and Vercel deployment. This is deliberately rough but complete. | On a fresh mobile browser: describe the fictional gynaecology case → see Dr. Kirti Sinha → enter fictional contact details → finish Razorpay test payment → see the WhatsApp-within-24-hours completion message. Confirm one case and one payment state in Convex. | Frontend, Backend, Database, Integration |
 | 2 | - [ ] **I can start safely without losing my input.** | Add required health-data consent, separate optional promotional consent, disabled Send for blank input, and specific errors for missing consent or blank text. | Type a message before consent, try to send it, then grant consent. The typed text remains and only one message is created. | Frontend |
-| 3 | - [ ] **I can use the hardcoded journey without duplicate actions.** | Harden the doctor introduction, persistent `See a Doctor`, approved trust strip, ₹800 promise, AI boundary, and protection against repeated taps creating duplicate cards or cases. | Double-tap Send and `See a Doctor`; only one patient message, doctor card, and case appear. | Frontend, Backend |
+| 3 | - [ ] **I can understand the service immediately and use the hardcoded journey without duplicate actions.** | Add the mobile-first hero message `Online consultations with specialists trained at AIIMS, Tata Memorial, JIPMER and other leading institutes.` Add visible first-screen trust signals for verified profiles, consultation within 24 hours, first consultation or second opinion, and the ₹800 introductory price. Label the hardcoded flow `Health Assistant` or `Guided intake`, not AI. Replace the second prompt with `How long has this been happening? Have you already consulted a doctor or completed any tests? It’s okay if you haven’t.` Keep the doctor introduction, persistent `See a Doctor`, AI boundary, and protection against repeated taps creating duplicate cards or cases. | On a 390 px-wide mobile screen, a first-time visitor can identify who the service connects them with, the training-institute claim, timeframe, consultation types, and price before typing. Enter `delay in periods`; the neutral second prompt must work whether or not the patient has seen a doctor. Confirm the page does not call the hardcoded flow AI. Double-tap Send and `See a Doctor`; only one patient message, doctor card, and case appear. | Frontend, Backend |
 | 4 | - [ ] **I can recover from unclear, urgent, or wrongly matched input.** | Add unclear-input retry, possible-emergency stop with nearest-hospital direction, and `This doesn’t look right` correction. | Test one nonsense message, one fictional emergency message, and one wrong-match correction. None reaches payment incorrectly. | Frontend, Backend |
 | 5 | - [ ] **I can be matched across all ten approved specialties.** | Add the full hardcoded specialty roster and two oncology routes. Use a neutral initials placeholder for medical oncology and only approved facts on every card. | Run one fictional example per specialty. Each produces the agreed doctor; unmatched cancer cases become enquiries. | Frontend, Backend |
 | 6 | - [ ] **I can submit usable contact details or an unsupported enquiry.** | Validate name, email, and Indian 10-digit phone number. Add the unsupported-case path that saves an enquiry and never opens payment. | Reject empty, malformed, and non-Indian phone inputs. Submit one valid supported case and one unsupported case; only the supported one can pay. | Frontend, Backend, Database |
